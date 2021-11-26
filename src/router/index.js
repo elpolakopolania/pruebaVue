@@ -4,7 +4,9 @@ import VueRouter from 'vue-router'
 /**
  * Importar todas las vistas
  */
-import Inscriptions from '../views/inscriptions/inscriptions.uve'
+ import Home from '../views/inscriptions/home.vue'
+import Inscriptions from '../views/inscriptions/inscriptions.vue'
+
   
 
 Vue.use(VueRouter)
@@ -13,6 +15,12 @@ const routes = [
   /**
    * Declarar las rutas para cada vista
    */
+  {
+    path: '/',
+    name: 'home',
+    component: Home
+  },
+
   {
     path: '/',
     name: 'inscriptions',

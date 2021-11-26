@@ -1,17 +1,17 @@
 <template>
-  <div>Inscripciones howar {{ mensaje }}</div>
+  <div>Inscripciones howar HOOOME {{ mensaje }}</div>
 </template>
 
 <script>
 
 export default {
-  name: "inscriptions",
+  name: "home",
   components: {
 
   },
   data() {
     return {
-      mensaje : ' ',
+      mensaje : 'Hola mundo!! inscripciones',
       msg:2
     }
   },
@@ -31,7 +31,7 @@ export default {
   // Metodos
   methods:{
     msgAlert(){
-      //alert('');
+      //alert('Pagina inicializada');
     }
 
   }  
