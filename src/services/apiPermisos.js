@@ -3,7 +3,8 @@ import AxiosPermisos from './axiosPermisos'
 // Todas las API y URL
 const uri = {
   getInscription: '/inscriptions/pageable',
-  getHouses: '/inscriptions/houses'
+  getHouses: '/inscriptions/houses',
+  setInscription: '/inscriptions',
 }
 
 
@@ -17,6 +18,18 @@ export default {
 
   getHouses: async () => {
     return await AxiosPermisos.get(uri.getHouses);
+  },
+
+  setInscription: async (data) => {
+    return await AxiosPermisos.post(uri.setInscription + '/', data);
+  },
+
+  updateInscription: async (data, id) => {
+    return await AxiosPermisos.put(uri.setInscription + '/' + id, data);
+  },
+
+  deleteInscription: async (id) => {
+    return await AxiosPermisos.delete(uri.setInscription + '/' + id);
   }
 
 }

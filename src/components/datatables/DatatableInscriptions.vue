@@ -8,13 +8,15 @@
           </blockquote>
         </figure>
     </div>
+
     <div class="col-12">
       <div class="table-responsive">
         <datatable
           :columns="datatable.columns"
-          :data="datatable.rows"
+          :data="inscriptions.data"
           :per-page="size"
-          :page="datatable.last_page"  
+          :page="inscriptions.last_page"  
+          :current-page="pagina"
           class="table table-hover caption-top rounded-circle"          
         >
           <template slot-scope="{ row, columns }">
@@ -34,8 +36,8 @@
           <b-pagination
             align="center"
             v-model="pagina"
-            :total-rows="datatable.last_page"
-            :per-page="1"
+            :total-rows="inscriptions.total"
+            :per-page="size"
             aria-controls="my-table"
           ></b-pagination>
         </div>
@@ -48,14 +50,11 @@
 
 import {mapActions, mapState} from "vuex";
 import OpcionesDatatable from "@/components/datatables/OpcionesDatatable.vue";
-import OpcionesDatatableHeader from "@/components/datatables/OpcionesDatatableHeader.vue";
 
 export default {
   name: "DatatableInscriptions",
   data() {
     return {
-      pagina: null,
-      size:10,
       datatable: {
         filter: "",
         total: null,
@@ -102,8 +101,7 @@ export default {
             field: "house.name",
             align: "center",  
             sortable: false,          
-            component: OpcionesDatatable, 
-            headerComponent: OpcionesDatatableHeader 
+            component: OpcionesDatatable
           }
         ],
         rows: [],
@@ -114,26 +112,33 @@ export default {
   computed: {
     ...mapState(
       "inscriptionStore",[
-        "inscriptions", "houses"
+        "inscriptions", "houses", "size"
       ]
-    )
+    ),
+
+    pagina: {
+      get () {
+        return this.inscriptions.per_page;
+      },
+      set (val) {
+        this.actSetPagina(val);
+        this.obtenerDatatable(val, 'set');        
+      }
+    },
   },
 
   watch: {
-    pagina: function(newVal){
-      this.obtenerDatatable(newVal);
-    }
+    
   },
 
   beforeMount() {
-    this.$bvModal.show('modal-edit');
-    this.obtenerDatatable(1);
+    
   },
 
   methods: {
     ...mapActions(
       'inscriptionStore',[
-        'actGetInscriptions', "actGetHouses"
+        'actGetInscriptions', "actGetHouses", "actSetPagina"
       ]
     ),
 
@@ -142,31 +147,25 @@ export default {
     },
 
     refrescar(){
-      this.obtenerDatatable(this.pagina);
+      this.obtenerDatatable(this.pagina, 'refrescar');
     },
 
-    obtenerDatatable(pagina){
+    obtenerDatatable(pagina, donde){
+      console.log('obtenerDatatable', donde, pagina);
       let data = [];
       data = {
-        'page': (pagina),
+        'page': (pagina == null)? 1:pagina,
         'size': this.size,
       };
       
-      this.actGetInscriptions(data).then((response) =>{
-        this.actualizarTabla(response);
+      this.actGetInscriptions(data).then((res) =>{
+        console.log(res);
       })
       .catch((response) => {
         this.error.flag = true;
         this.error.class = "is-invalid";
         this.error.message = "No se pudo conectar al servicio: error: "+response;
       });
-    },
-
-    actualizarTabla(response){
-      this.datatable.rows = response.data;
-      this.datatable.last_page = response.last_page;
-      this.datatable.per_page = response.per_page;
-      this.datatable.total = response.total;
     },
 
   },

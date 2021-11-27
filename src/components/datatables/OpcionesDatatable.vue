@@ -7,6 +7,8 @@
 
 <script>
 
+import {mapActions, mapState} from "vuex";
+
 export default {
   name: "SelectRow",
   data() {
@@ -16,16 +18,45 @@ export default {
   },
   props: ['row'],
   computed: {
+    ...mapState(
+      "inscriptionStore",[
+        "inscriptions", "houses", "loadingSave", 
+        "loading", "inscriptionsSelected"
+      ]
+    ),
     
   },
   methods: {
+    ...mapActions(
+      'inscriptionStore',[
+        'actGetInscriptions', "actGetHouses", "actSetInscription",
+        "actSetInscriptionSelected"
+      ]
+    ),
+
     editar(){
-      console.log('editar')
+      let inscription = {
+        id: this.row.id,
+        name: this.row.name,
+        lastname: this.row.lastname,
+        identification: this.row.identification,
+        age: this.row.age,
+        house: this.row.house.id
+      };
+      this.actSetInscriptionSelected(inscription);
       this.$bvModal.show('modal-edit');
     },
 
     eliminar(){
-      console.log('eliminar')
+      let inscription = {
+        id: this.row.id,
+        name: this.row.name,
+        lastname: this.row.lastname,
+        identification: this.row.identification,
+        age: this.row.age,
+        house: this.row.house.id
+      };
+      this.actSetInscriptionSelected(inscription);
       this.$bvModal.show('modal-confirm');
     },
     

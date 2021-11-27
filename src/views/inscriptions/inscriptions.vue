@@ -36,7 +36,6 @@ export default {
   },
   // Antes de que cargue la pagina
   beforeMount() {
-    this.msgAlert();
   },
   // Filtros
   computed: {    
@@ -45,20 +44,10 @@ export default {
   
   // Metodos
   methods:{
-    msgAlert(){
-      //alert('');
-    },
-
-    
 
     crear(){
-      console.log('crear')
       this.$bvModal.show('modal-scoped');
     },
-
-    
-
-
 
   }  
 };
