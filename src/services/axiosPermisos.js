@@ -21,33 +21,32 @@ Axios.interceptors.response.use(
 
 // Todos los metodos
 export default {
-    get: (uri, token, version = 'v1') => {
-        version = typeof version === 'object' ? 'v1':version;
-        const request = Axios.get(config.permisosApi + version  + uri, config.axiosConf(token));
+    get: (uri) => {
+        const request = Axios.get(config.permisosApi + uri);
         return request
             .then(callback.success)
             .catch(callback.errorConn);
     },    
-    post: (uri, token, data, version = 'v1') => { 
-        const request = Axios.post(config.permisosApi + version + uri, data, config.axiosConf(token));
+    post: (uri,  data) => { 
+        const request = Axios.post(config.permisosApi  + uri, data);
         return request
             .then(callback.success)
             .catch(callback.errorConn);
     },
-    put: (uri, token, data, version = 'v1') => {
-        const request = Axios.put(config.permisosApi + version + uri, data, config.axiosConf(token));
+    put: (uri,  data) => {
+        const request = Axios.put(config.permisosApi  + uri, data);
         return request
             .then(callback.success)
             .catch(callback.errorConn);
     },
-    patch: (uri, token, data, version = 'v1') => {
-        const request = Axios.patch(config.permisosApi + version + uri, data, config.axiosConf(token));
+    patch: (uri,  data) => {
+        const request = Axios.patch(config.permisosApi  + uri, data);
         return request
             .then(callback.success)
             .catch(callback.errorConn);
     },
-    delete: (uri, token, version = 'v1')=> {
-        const request = Axios.delete(config.permisosApi + version + uri, config.axiosConf(token));
+    delete: (uri)=> {
+        const request = Axios.delete(config.permisosApi  + uri);
         return request
             .then(callback.success)
             .catch(callback.errorConn);

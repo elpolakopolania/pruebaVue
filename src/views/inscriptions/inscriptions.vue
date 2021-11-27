@@ -1,13 +1,28 @@
 <template>
-  <div>Inscripciones howar {{ mensaje }}</div>
+  <div>
+    <HeaderLayout />
+
+    <DatatableInscriptions />
+
+    <ModalInscription />
+    <ModalConfirm />
+  </div>
 </template>
 
 <script>
 
+import HeaderLayout from "@/components/layout/HeaderLayout.vue";
+import DatatableInscriptions from "@/components/datatables/DatatableInscriptions.vue";
+import ModalInscription from "@/components/modal/ModalInscription.vue";
+import ModalConfirm from "@/components/modal/ModalConfirm.vue";
+
 export default {
   name: "inscriptions",
   components: {
-
+    HeaderLayout,
+    DatatableInscriptions,
+    ModalInscription,
+    ModalConfirm
   },
   data() {
     return {
@@ -32,7 +47,18 @@ export default {
   methods:{
     msgAlert(){
       //alert('');
-    }
+    },
+
+    
+
+    crear(){
+      console.log('crear')
+      this.$bvModal.show('modal-scoped');
+    },
+
+    
+
+
 
   }  
 };

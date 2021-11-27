@@ -22,10 +22,11 @@ const routes = [
   },
 
   {
-    path: '/',
+    path: '/inscriptions',
     name: 'inscriptions',
     component: Inscriptions
   }
+
 
 ]
 
