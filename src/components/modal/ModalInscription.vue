@@ -172,7 +172,6 @@ export default {
     },
 
     validatehouse(){
-      console.log(this.inscriptionsSelected.house);
       return (this.inscriptionsSelected.house == null)? false: true;
     },
 
